@@ -4,6 +4,15 @@ pipeline {
     }
     stages {
         stage('SDLE Upload') {
+            when {
+                anyOf {
+                    allOf {
+                        expression { env.GIT_BRANCH == 'main' }
+                        triggeredBy 'TimerTrigger'
+                    }
+                    triggeredBy 'UserIdCause'
+                }
+            }
             steps {
                 script {
                     parallel getStages('sdle.yaml')
