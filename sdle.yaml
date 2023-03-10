@@ -1,7 +1,7 @@
-#  The following data structure contains a list of the projects to process, each will execute independently 
-#  in an isolated workspace and in parallel.
+#  The following represents a list of the projects to process, the Jenkins pipeline will execute
+#  each independently in an isolated workspace and in parallel.
 #
-#  The following metadata is required for each project:
+#  The following attributes are required for each project:
 #      sdle_project_id : the id of project in sdle
 #      name: the name of project in sdle
 #      owner: the account owner of the GitHub repository

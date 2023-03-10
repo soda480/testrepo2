@@ -2,6 +2,10 @@ pipeline {
     agent {
         label 'rbhe'
     }
+    triggers {
+        // execute @ 9:30 AM on Jan 15, Apr 15, Jul 15, Oct 15
+        cron('TZ=US/Arizona\n30 9 15 1,4,7,10 *')
+    }
     stages {
         stage('SDLE Upload') {
             when {
@@ -49,8 +53,8 @@ def generateStage(project) {
                     projectArtifacts: project.artifacts,
                     projectFolders: project.folders])
 
-                // sdleUpload([
-                //    sdleUploadProjectId: project.sdle_project_id]) 
+                sdleUpload([
+                   sdleUploadProjectId: project.sdle_project_id])
             }
         }
     }
