@@ -6,11 +6,8 @@ pipeline {
         stage('SDLE Upload') {
             steps {
                 script {
-                    def projects = readYaml file: 'sdle.yaml'
-                    def parallelStages = projects.collectEntries {
-                        ["${it}" : generateStage(it)]
-                    }
-                    parallel parallelStages
+                    def stages = getStages('sdle.yaml')
+                    parallel stages
                 }
             }
         }
@@ -20,6 +17,14 @@ pipeline {
             cleanWs()
         }
     }
+}
+
+def getStages(filename) {
+    def projects = readYaml file: filename
+    def stages = projects.collectEntries {
+        ["${it}" : generateStage(it)]
+    }
+    stages
 }
 
 def generateStage(project) {
